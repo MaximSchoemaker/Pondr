@@ -1,0 +1,9 @@
+title: Drawing
+slides:
+  - 1_canvas
+  - 2_line
+  - 3_strokeWeight
+  - 4_stroke
+  - 5_circle
+  - 6_rect
+  - 7_all
