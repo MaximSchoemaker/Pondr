@@ -338,6 +338,7 @@ main {
   max-height: 100vh;
 }
 
+
 .widget {
   box-sizing: border-box;
   /* padding: 25px 35px; */
@@ -348,6 +349,12 @@ main {
   width: 100%;
 }
 
+.widget.loading {
+  filter:  blur(1px);
+  /* filter: contrast(150%); */
+  /* transition: filter 0.5s; */
+}
+
 .widget.visible {
   z-index: 1;
   opacity: 1;
@@ -356,7 +363,7 @@ main {
   opacity: 0;
 }
 .widget.first-load {
-  transition: opacity 0.5s;
+  transition: opacity 1s;
 }
 
 .widget script {
@@ -378,7 +385,7 @@ iframe {
   box-shadow: 12px 12px 5px  rgba(0, 0, 0, .2);
 }
 
-#Lesson {
+#Slide {
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -754,7 +761,7 @@ li:not(:last-child) {
 }
 
 
-#Lessons {
+#Lesson {
   width: 100%;
   height: 100%;
 
@@ -770,7 +777,7 @@ li:not(:last-child) {
 
 #Workshop .text {
   /* flex: 1 */
-  max-width: 25vw;
+  /* max-width: 25vw; */
 }
 
 /* .homepage {
@@ -848,8 +855,8 @@ li:not(:last-child) {
 .transition-exit-active {
   transition: transform .7s ease-in; /*, opacity .5s ease-in;*/
 }
-.transition-enter-active #Lesson,
-.transition-exit-active #Lesson{
+.transition-enter-active #Slide,
+.transition-exit-active #Slide{
   overflow: hidden;
 }
 

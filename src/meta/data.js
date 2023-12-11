@@ -16,7 +16,7 @@ const lessons = meta.lessons.map(lesson => ({
     url: `/${lesson.lesson}/${i}`,
   }))
 }));
-console.log(lessons);
+// console.log(lessons);
 
 export {
   meta,
