@@ -1,5 +1,5 @@
-content:
-  js: scale_strokeWeight.js
-  md: scale_strokeWeight.md
-  image: scale_strokeWeight.png
+
+code: scale_strokeWeight.js
+copy: scale_strokeWeight.md
+image: scale_strokeWeight.png
 title: scale stroke weight

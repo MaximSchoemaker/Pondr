@@ -1,5 +1,5 @@
-content:
-  js: stroke.js
-  md: stroke.md
-  image: stroke.png
+
+code: stroke.js
+copy: stroke.md
+image: stroke.png
 title: stroke

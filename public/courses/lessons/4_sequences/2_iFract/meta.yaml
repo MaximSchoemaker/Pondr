@@ -1,5 +1,5 @@
-content:
-  js: iFract.js
-  md: iFract.md
-  image: iFract.png
+
+code: iFract.js
+copy: iFract.md
+image: iFract.png
 title: iteration fraction

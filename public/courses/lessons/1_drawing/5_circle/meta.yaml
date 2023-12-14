@@ -1,5 +1,5 @@
-content:
-  js: circle.js
-  md: circle.md
-  image: circle.png
+
+code: circle.js
+copy: circle.md
+image: circle.png
 title: circle

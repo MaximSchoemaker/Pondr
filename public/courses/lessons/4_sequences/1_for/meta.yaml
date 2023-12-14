@@ -1,5 +1,5 @@
-content:
-  js: for.js
-  md: for.md
-  image: for.png
+
+code: for.js
+copy: for.md
+image: for.png
 title: for loop

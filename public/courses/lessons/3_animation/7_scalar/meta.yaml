@@ -1,5 +1,5 @@
-content:
-  js: scalar.js
-  md: scalar.md
-  image: scalar.png
+
+code: scalar.js
+copy: scalar.md
+image: scalar.png
 title: signal speed

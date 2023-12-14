@@ -1,5 +1,4 @@
-content:
-  js: line.js
-  md: line.md
-  image: screenshot_line.png
 title: line
+code: line.js
+copy: line.md
+image: screenshot_line.png

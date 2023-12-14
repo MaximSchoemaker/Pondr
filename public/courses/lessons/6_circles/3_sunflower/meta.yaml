@@ -1,5 +1,5 @@
-content:
-  js: sunflower.js
-  md: sunflower.md
-  image: sunflower.png
+
+code: sunflower.js
+copy: sunflower.md
+image: sunflower.png
 title: golden ratio sunflower spiral

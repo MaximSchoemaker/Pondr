@@ -1,5 +1,5 @@
-content:
-  js: animate2.js
-  md: animate2.md
-  image: animate2.png
+
+code: animate2.js
+copy: animate2.md
+image: animate2.png
 title: around & around & around

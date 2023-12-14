@@ -1,5 +1,5 @@
-content:
-  js: mouseY.js
-  md: mouseY.md
-  image: mouseY.png
+
+code: mouseY.js
+copy: mouseY.md
+image: mouseY.png
 title: mouse y

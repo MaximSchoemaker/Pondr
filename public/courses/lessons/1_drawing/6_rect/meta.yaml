@@ -1,5 +1,5 @@
-content:
-  js: rect.js
-  md: rect.md
-  image: rect.png
+
+code: rect.js
+copy: rect.md
+image: rect.png
 title: rectangle

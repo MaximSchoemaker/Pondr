@@ -1,5 +1,5 @@
-content:
-  js: all.js
-  md: all.md
-  image: all.png
+
+code: all.js
+copy: all.md
+image: all.png
 title: all together now!

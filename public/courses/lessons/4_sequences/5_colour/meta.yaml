@@ -1,5 +1,5 @@
-content:
-  js: colour.js
-  md: colour.md
-  image: colour.png
+
+code: colour.js
+copy: colour.md
+image: colour.png
 title: interpolating colour

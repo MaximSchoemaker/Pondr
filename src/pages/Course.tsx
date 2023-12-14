@@ -4,29 +4,39 @@ import { useParams, Link } from "react-router-dom";
 import { isTouchDevice } from "../utils/isTouchDevice";
 import { HomepageLinks } from "./Homepage";
 
-import all_courses from "../meta/courses.json";
-import all_lessons from "../meta/lessons.json";
-import all_slides from "../meta/slides.json";
+import { CompiledLesson, CompiledSlide } from "../types";
+
+import all_courses from "../compiled/courses.json";
+import all_lessons from "../compiled/lessons.json";
+import all_slides from "../compiled/slides.json";
 
 export function Course() {
-   // console.log("COURSE");
-   // console.log({ all_courses, all_lessons, all_slides });
-
    let params = useParams();
    const { courseId } = params;
+
+   const course = all_courses.find(course => course.uuid == courseId);
+
+   if (!course) return <span>Course {courseId} does not exist...</span>
+
    const courseLessons = all_lessons.filter(lesson => lesson.parent_uuid === courseId);
 
-   const [openLesson, set_openLesson] = useState(null);
-   const onHoverLesson = (i) => set_openLesson(i);
+   const [openLesson, set_openLesson] = useState<number | null>(null);
+   const onHoverLesson = (i: number) => set_openLesson(i);
    const touchDevice = isTouchDevice();
    const lessonContainerHeight = touchDevice ? "auto" : (all_lessons.length - 1) * 125 + 198;
 
+   const { meta } = course;
+   const { title } = meta;
+
    return (
-      <div id="Homepage">
-         <h1 className="homepage-title">PONDR</h1>
+      <div id="Course">
+         <span className="course-header">
+            <h1 className="course-title">{title}</h1>
+            <Link className="course-back-button" to="/">&#xe903;</Link>
+         </span>
          <div className="lessons-container" style={{ height: lessonContainerHeight }}>
             {courseLessons.map((lesson, i) =>
-               <LessonPreview key={lesson.uuid} lesson={lesson} index={i} open={openLesson == i} onHoverLesson={onHoverLesson} />
+               <LessonPreview key={lesson.uuid} lesson={lesson} index={i} open={openLesson === i} onHoverLesson={onHoverLesson} />
             )}
          </div>
          <div className="links-container">
@@ -36,15 +46,22 @@ export function Course() {
    );
 }
 
-function LessonPreview({ lesson, index, open, onHoverLesson }) {
+type LessonPreviewProps = {
+   lesson: CompiledLesson,
+   index: number,
+   open: boolean,
+   onHoverLesson: (index: number) => void,
+}
+
+function LessonPreview({ lesson, index, open, onHoverLesson }: LessonPreviewProps) {
    const lessonSlides = all_slides.filter(slide => slide.parent_uuid === lesson.uuid);
 
    const { meta } = lesson;
-   const { title, image } = meta;
+   const { title } = meta;
 
-   const scrollRef = useRef();
+   const scrollRef = useRef<HTMLDivElement>(null);
 
-   const scrollPositionStart = Math.max(0, lessonSlides.findIndex(({ url }) => localStorage.getItem(url) !== "true")) * 165;
+   const scrollPositionStart = Math.max(0, lessonSlides.findIndex(({ uuid }) => localStorage.getItem(uuid) !== "true")) * 165;
    const [scrollPosition, set_scrollPosition] = useState(0);
 
    const [hovered, set_hovered] = useState(false);
@@ -59,7 +76,7 @@ function LessonPreview({ lesson, index, open, onHoverLesson }) {
    useEffect(() => {
       const { current: scroll } = scrollRef;
       if (scroll && isTouchDevice()) {
-         const { parentNode: scrollParent } = scroll;
+         const scrollParent = scroll.parentNode as HTMLDivElement;
          setTimeout(() => {
             scrollParent.scrollTo({ left: scrollPositionStart, behavior: "smooth" });
          }, 1000 + index * 300);
@@ -67,20 +84,20 @@ function LessonPreview({ lesson, index, open, onHoverLesson }) {
    }, [scrollRef.current]);
 
    const count = lessonSlides.length;
-   const done = lessonSlides.reduce((tot, { url }) => localStorage.getItem(url) === "true" ? tot + 1 : tot, 0);
+   const done = lessonSlides.reduce((tot, { uuid }) => localStorage.getItem(uuid) === "true" ? tot + 1 : tot, 0);
 
    const [progress, set_progress] = useState(0);
    useEffect(() => {
       setTimeout(() => set_progress(done / count));
    }, []);
 
-   const onHover = (evt, i) => {
+   const onHover = (evt: React.MouseEvent<HTMLAnchorElement>) => {
       const { current: scroll } = scrollRef;
       if (scroll && !isTouchDevice()) {
-         const { parentNode: scrollParent } = scroll;
+         const scrollParent = scroll.parentNode as HTMLDivElement;
 
          const scrollSpace = Math.max(0, scroll.offsetWidth + 22 - scrollParent.offsetWidth);
-         const boundingRect = evt.target.getBoundingClientRect();
+         const boundingRect = evt.currentTarget.getBoundingClientRect();
          const scrollParentBoundingRect = scrollParent.getBoundingClientRect();
 
          const left = boundingRect.left - scrollParentBoundingRect.left - 50;
@@ -106,7 +123,7 @@ function LessonPreview({ lesson, index, open, onHoverLesson }) {
          <div className={`slides-container ${done > 0 ? "progress-started" : ""} ${done === count ? "progress-done" : ""}`}>
             <div className="slides-scroll" ref={scrollRef} style={{ left: -scrollPosition }}>
                {lessonSlides.map((slide, i) =>
-                  <SlidePreview key={slide.uuid} slide={slide} lessonIndex={index} index={i} onHover={(evt) => onHover(evt, i)} />
+                  <SlidePreview key={slide.uuid} slide={slide} lessonIndex={index} index={i} onHover={onHover} />
                )}
             </div>
          </div>
@@ -114,10 +131,16 @@ function LessonPreview({ lesson, index, open, onHoverLesson }) {
    );
 }
 
-function SlidePreview({ slide, lessonIndex, index, onHover }) {
-   const { uuid, parent_uuid, meta } = slide;
-   const { title, content, public_dir } = meta;
-   const { image } = content;
+type SlidePreviewProps = {
+   slide: CompiledSlide;
+   lessonIndex: number;
+   index: number;
+   onHover: (evt: React.MouseEvent<HTMLAnchorElement>) => void;
+}
+
+function SlidePreview({ slide, lessonIndex, index, onHover }: SlidePreviewProps) {
+   const { uuid, parent_uuid, public_dir, meta } = slide;
+   const { title, image } = meta;
 
    const url = `${parent_uuid}/${uuid}`;
 
@@ -125,7 +148,7 @@ function SlidePreview({ slide, lessonIndex, index, onHover }) {
 
    const [loaded, set_loaded] = useState(!image);
    const delay = lessonIndex * 0.075 + index * 0.075;
-   const visited = localStorage.getItem(url) === "true";
+   const visited = localStorage.getItem(uuid) === "true";
 
    return (
       <div className={`SlidePreview-container ${loaded ? "loaded" : ""}`} style={{ transitionDelay: delay + "s" }} >

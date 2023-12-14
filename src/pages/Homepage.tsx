@@ -1,17 +1,11 @@
-import { useEffect, useState, useRef } from "react";
-import { HashRouter, Routes, Route, Navigate, useLocation, useParams, useNavigate, Link } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from 'rehype-raw'
+import { Link } from "react-router-dom";
 
-import { isTouchDevice } from "../utils/isTouchDevice";
-import all_courses from "../meta/courses.json";
+import { CompiledCourse } from "../types";
+
+import all_courses from "../compiled/courses.json";
 
 export function Homepage() {
-   // console.log("HOMEPAGE");
-   // console.log({ all_courses });
-
    return (
       <div id="Homepage">
          <h1 className="homepage-title">PONDR</h1>
@@ -25,13 +19,17 @@ export function Homepage() {
    );
 }
 
-function CoursePreview({ course }) {
+type CoursePreviewProps = {
+   course: CompiledCourse;
+}
+
+function CoursePreview({ course }: CoursePreviewProps) {
    const { uuid, meta } = course;
    const { title } = meta;
 
    return (
-      <div id="Course">
-         <a href={`/${uuid}`}>{title}</a>
+      <div id="CoursePreview">
+         <Link to={`/${uuid}`}>{title}</Link>
       </div>
    );
 }
@@ -40,7 +38,7 @@ const resources = [
    { text: "p5.js documentation", url: "https://p5js.org/reference/", icon: "/images/p5js.ico" },
    { text: "p5.js editor", url: "https://editor.p5js.org/", icon: "/images/p5js.ico" },
    { text: "Creative Coding with Maxim", url: "https://www.youtube.com/@creativecodingwithmaxim", icomoon: "youtube" },
-   { text: "Creative Coding Codex", url: "https://www.cccodex.com/", textIcon: "➳" },
+   { text: "Creative Coding Codex", url: "https://www.cccodex.com/", text_icon: "➳" },
 ]
 const socials = [
    { text: "portfolio", url: "https://maximschoemaker.com/", icon: "/images/logo.png" },
@@ -58,18 +56,28 @@ export function HomepageLinks() {
    );
 }
 
-function LinksSection({ title, links }) {
+type LinksSectionProps = {
+   title: string;
+   links: {
+      text: string;
+      url: string;
+      icon?: string;
+      icomoon?: string;
+      text_icon?: string;
+   }[]
+}
+
+function LinksSection({ title, links }: LinksSectionProps) {
    return (
       <div id="LinksSection">
          <h2><span className="links-section-index">✦</span>{title}</h2>
          <div className="links-section">
-            {/* <span className="md-index">✦</span> */}
             <ul>
-               {links.map(({ text, url, icon, icomoon, textIcon }) =>
+               {links.map(({ text, url, icon, icomoon, text_icon }) =>
                   <li key={text}>
                      {icon && <img src={icon} alt="icon" className="icon" />}
                      {icomoon && <div className={`icon icon-${icomoon}`} />}
-                     {textIcon && <div className="icon">{textIcon}</div>}
+                     {text_icon && <div className="icon">{text_icon}</div>}
                      <a href={url} target="_blank" rel="noreferrer">{text}</a>
                   </li>
                )}

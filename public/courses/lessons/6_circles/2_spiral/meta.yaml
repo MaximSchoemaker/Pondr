@@ -1,5 +1,5 @@
-content:
-  js: spiral.js
-  md: spiral.md
-  image: spiral.png
+
+code: spiral.js
+copy: spiral.md
+image: spiral.png
 title: spiraling out of control

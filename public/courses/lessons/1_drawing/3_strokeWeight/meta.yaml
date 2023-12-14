@@ -1,5 +1,5 @@
-content:
-  js: strokeWeight.js
-  md: strokeWeight.md
-  image: strokeWeight.png
+
+code: strokeWeight.js
+copy: strokeWeight.md
+image: strokeWeight.png
 title: stroke weight

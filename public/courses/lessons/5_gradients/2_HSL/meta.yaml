@@ -1,5 +1,5 @@
-content:
-  js: HSL.js
-  md: HSL.md
-  image: HSL.png
+
+code: HSL.js
+copy: HSL.md
+image: HSL.png
 title: hue, saturation, lightness

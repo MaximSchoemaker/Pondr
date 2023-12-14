@@ -1,5 +1,4 @@
-content:
-  js: canvas.js
-  md: canvas.md
-  image: canvas.png
 title: canvas
+code: canvas.js
+copy: canvas.md
+image: canvas.png

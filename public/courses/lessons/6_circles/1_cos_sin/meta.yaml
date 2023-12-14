@@ -1,5 +1,5 @@
-content:
-  js: cos_sin.js
-  md: cos_sin.md
-  image: cos_sin.png
+
+code: cos_sin.js
+copy: cos_sin.md
+image: cos_sin.png
 title: sine & cosine

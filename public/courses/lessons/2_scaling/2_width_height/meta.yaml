@@ -1,5 +1,5 @@
-content:
-  js: width_height.js
-  md: width_height.md
-  image: width_height.png
+
+code: width_height.js
+copy: width_height.md
+image: width_height.png
 title: width & height

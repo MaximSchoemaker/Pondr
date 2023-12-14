@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { HashRouter, Routes, Route, Navigate, useLocation, useParams, useNavigate, Link } from "react-router-dom";
+import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import ReactMarkdown from "react-markdown";
@@ -7,13 +7,11 @@ import rehypeRaw from 'rehype-raw'
 
 import { loadMd } from '../utils/loadMd';
 
-import all_lessons from "../meta/lessons.json";
-import all_slides from "../meta/slides.json";
+import all_lessons from "../compiled/lessons.json";
+import all_slides from "../compiled/slides.json";
+import { CompiledSlide } from "../types";
 
 export function Lesson() {
-   // console.log("LESSON");
-   // console.log({ all_lessons, all_slides });
-
    const location = useLocation();
    const transitionDirection = location.state?.direction;
 
@@ -22,14 +20,12 @@ export function Lesson() {
    useEffect(() => {
       const mql = window.matchMedia('(orientation: portrait)');
       mql.onchange = (e) => set_portrait(e.matches);
-      return () => mql.onchange = null;
+      // return () => mql.onchange = null;
    }, [])
-
 
    let params = useParams();
    const { courseId, lessonId, slideId } = params;
 
-   // const lessons = all_lessons.filter(lesson => lesson.uuid === lessonId);
    const lesson = all_lessons.find(lesson => lesson.uuid === lessonId);
 
    if (!lesson) return (
@@ -47,11 +43,9 @@ export function Lesson() {
 
    const prevLesson = all_lessons[lessonIndex - 1];
    const prevLessonLastSlide = prevLesson && [...all_slides].reverse().find(slide => slide.parent_uuid === prevLesson.uuid);
-   console.log({ prevLesson, prevLessonLastSlide });
 
    const nextLesson = all_lessons[lessonIndex + 1];
    const nextLessonFirstSlide = nextLesson && all_slides.find(slide => slide.parent_uuid === nextLesson.uuid);
-   console.log({ nextLesson, nextLessonFirstSlide });
 
    const slideIndex = slides.indexOf(slide);
    const prevSlide = slides[slideIndex - 1];
@@ -68,11 +62,9 @@ export function Lesson() {
       : nextLesson && nextLessonFirstSlide && `/${courseId}/${nextLesson.uuid}/${nextLessonFirstSlide.uuid}`;
    const homeUrl = `/${courseId}/`;
 
-   console.log({ prevUrl, nextUrl });
-
    const navigate = useNavigate();
    useEffect(() => {
-      const keyDown = (evt) => {
+      const keyDown = (evt: KeyboardEvent) => {
          switch (evt.code) {
             case "ArrowLeft":
                prevUrl && navigate(prevUrl, { state: { direction: "backward" } });
@@ -87,7 +79,7 @@ export function Lesson() {
       return () => window.removeEventListener("keydown", keyDown);
    }, [prevUrl, nextUrl]);
 
-   const header = (in_document, no_margin_bottom = false) => (
+   const header = (in_document = true, no_margin_bottom = false) => (
       <div className={`header ${in_document ? "in-document" : ""}`}>
          <h1 style={{ marginBottom: no_margin_bottom ? 0 : undefined }}
          >
@@ -101,7 +93,7 @@ export function Lesson() {
    const controls = (
       <div id="Controls">
          {prevUrl
-            ? <Link disabled={prevUrl} to={prevUrl} state={{ direction: "backward" }} className="previous">{/*🠔*/}&#xe903;</Link>
+            ? <Link to={prevUrl} state={{ direction: "backward" }} className="previous">{/*🠔*/}&#xe903;</Link>
             : <span className="previous" />
          }
          <Link className="home" to={homeUrl}><span className="label">home</span>O</Link>
@@ -115,7 +107,7 @@ export function Lesson() {
 
    return (
       <div id="Lesson">
-         <div className="progress" style={{ '--progress': progress }}></div>
+         <div className="progress" style={{ '--progress': progress } as React.CSSProperties}></div>
          <TransitionGroup className={`transition-container ${transitionDirection} `}>
             <CSSTransition key={lessonId} classNames="transition" timeout={700}>
                <div className="transition">
@@ -133,53 +125,65 @@ export function Lesson() {
    );
 }
 
-function Slide({ slide, header, controls, portrait, makeExplicit, lib, vw }) {
-   const ref = useRef();
+type HeaderRenderFn = (
+   in_document?: boolean,
+   no_margin_bottom?: boolean
+) => React.ReactNode;
+
+type SlideProps = {
+   slide: CompiledSlide;
+   header: HeaderRenderFn;
+   controls: React.ReactNode;
+   portrait: boolean;
+   makeExplicit: boolean;
+   lib?: string;
+   vw?: number;
+}
+
+function Slide({ slide, header, controls, portrait, makeExplicit, lib, vw }: SlideProps) {
+   const ref = useRef<HTMLDivElement>(null);
    const scrollTop = () => ref.current?.scrollTo({ top: 0, behavior: "smooth" });
 
-   const { meta } = slide;
-   const { public_dir, content } = meta;
+   const { uuid, public_dir, meta } = slide;
 
    useEffect(() => {
-      localStorage.setItem(public_dir, "true");
+      localStorage.setItem(uuid, "true");
    }, [public_dir]);
 
-   const { md, js } = content;
+   const { copy, code } = meta;
 
-   const copyUrl = `${public_dir}\\${md}`;
-   const codeUrl = `${public_dir}\\${js}`;
+   const copyUrl = `${public_dir}\\${copy}`;
+   const codeUrl = `${public_dir}\\${code}`;
 
-   // console.log({ copyUrl, codeUrl });
-
-   const header_no_margin_bottom = !md || portrait && js;
+   const header_no_margin_bottom = !!(!copy || portrait && code);
 
    return (
       <div id="Slide" ref={ref}>
-         {(!md || portrait) && header(false, header_no_margin_bottom)}
+         {(!copy || portrait) && header(false, header_no_margin_bottom)}
 
          <div className="container">
             {portrait
                ? <>
-                  {md &&
-                     <Text copyUrl={copyUrl} header={header} controls={controls} portrait={portrait} onLoadMarkdown={scrollTop} />
+                  {copy &&
+                     <Copy copyUrl={copyUrl} header={header} controls={controls} portrait={portrait} onLoad={scrollTop} />
                   }
-                  {js &&
+                  {code &&
                      <P5Widget slideUuid={slide.uuid} codeUrl={codeUrl} makeExplicit={makeExplicit} lib={lib} vw={vw} />
                   }
                </>
                : <>
-                  {js &&
+                  {code &&
                      <P5Widget slideUuid={slide.uuid} codeUrl={codeUrl} makeExplicit={makeExplicit} lib={lib} vw={vw} />
                   }
-                  {md &&
-                     <Text copyUrl={copyUrl} header={header} controls={controls} portrait={portrait} onLoadMarkdown={scrollTop} />
+                  {copy &&
+                     <Copy copyUrl={copyUrl} header={header} controls={controls} portrait={portrait} onLoad={scrollTop} />
                   }
                </>
             }
          </div>
 
          {
-            !md &&
+            !copy &&
             <div className="footer">
                {controls}
             </div>
@@ -188,7 +192,15 @@ function Slide({ slide, header, controls, portrait, makeExplicit, lib, vw }) {
    );
 }
 
-function Text({ copyUrl, header, controls, portrait, onLoadMarkdown }) {
+type CopyProps = {
+   copyUrl: string;
+   header: HeaderRenderFn;
+   controls: React.ReactNode;
+   portrait: boolean;
+   onLoad: () => void;
+}
+
+function Copy({ copyUrl, header, controls, portrait, onLoad }: CopyProps) {
    const [markdown, set_markdown] = useState<string[]>([]);
    const [markdownLoadedFirstTime, set_markdownLoadedFirstTime] = useState(false);
 
@@ -197,7 +209,7 @@ function Text({ copyUrl, header, controls, portrait, onLoadMarkdown }) {
          loadMd(copyUrl).then(md => {
             set_markdown(md);
             set_markdownLoadedFirstTime(true);
-            onLoadMarkdown();
+            onLoad();
          });
       }
    }, [copyUrl]);
@@ -222,20 +234,29 @@ function Text({ copyUrl, header, controls, portrait, onLoadMarkdown }) {
    );
 }
 
-function P5Widget({ slideUuid, codeUrl, makeExplicit, lib, vw = 50 }) {
+type P5WidgetProps = {
+   slideUuid: string;
+   codeUrl: string;
+   makeExplicit: boolean;
+   lib?: string;
+   vw?: number;
+}
+
+function P5Widget({ slideUuid, codeUrl, makeExplicit, lib, vw = 50 }: P5WidgetProps) {
    const [loading, set_loading] = useState(true);
    const [first_load, set_first_load] = useState(true);
-   const [visible_slide_uuid, set_visible_slide_uuid] = useState(null);
+   const [visible_slide_uuid, set_visible_slide_uuid] = useState<string | null>(null);
 
    useEffect(() => {
-      set_loading(true);
-      if (slideUuid)
+      if (slideUuid) {
+         if (slideUuid === visible_slide_uuid) return;
+         set_loading(true);
          window.p5Widget.replaceAll(() => {
             set_visible_slide_uuid(slideUuid)
             set_first_load(visible_slide_uuid == null)
             set_loading(false);
          });
-      else
+      } else
          set_visible_slide_uuid(null);
    }, [slideUuid]);
 
@@ -247,7 +268,15 @@ function P5Widget({ slideUuid, codeUrl, makeExplicit, lib, vw = 50 }) {
    return <div className={`widget-container`}>
       {all_slides.map((slide, i) =>
          (slide.uuid === slideUuid || slide.uuid === visible_slide_uuid) &&
-         <div className={`widget ${slide.uuid === visible_slide_uuid ? 'visible' : ''} ${first_load ? 'first-load' : ''} ${loading ? 'loading' : ''}`} >
+         <div
+            key={slide.uuid}
+            className={`
+               widget 
+               ${slide.uuid === visible_slide_uuid ? 'visible' : ''} 
+               ${first_load ? 'first-load' : ''} 
+               ${loading ? 'loading' : ''}
+            `}
+         >
             <script
                type="text/p5"
                src={codeUrl}

@@ -1,5 +1,5 @@
-content:
-  js: windowSize.js
-  md: windowSize.md
-  image: windowSize.png
+
+code: windowSize.js
+copy: windowSize.md
+image: windowSize.png
 title: window width & height

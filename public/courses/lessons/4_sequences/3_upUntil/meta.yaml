@@ -1,5 +1,5 @@
-content:
-  js: upUntil.js
-  md: upUntil.md
-  image: upUntil.png
+
+code: upUntil.js
+copy: upUntil.md
+image: upUntil.png
 title: up until and including

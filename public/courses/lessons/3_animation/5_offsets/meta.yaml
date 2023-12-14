@@ -1,5 +1,5 @@
-content:
-  js: offsets.js
-  md: offsets.md
-  image: offsets.png
+
+code: offsets.js
+copy: offsets.md
+image: offsets.png
 title: signal offsets
