@@ -29,6 +29,8 @@ export type CompiledLesson = Compiled<{
 export type CompiledSlide = Compiled<{
    title: string;
    image: string;
-   code: string;
    copy: string;
+   code: string;
+   lib?: string;
+   explicit_setup?: boolean;
 }>;

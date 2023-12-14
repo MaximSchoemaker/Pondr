@@ -1,3 +1,0 @@
-function my_garden() {
-
-}

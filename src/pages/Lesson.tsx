@@ -27,6 +27,7 @@ export function Lesson() {
    const { courseId, lessonId, slideId } = params;
 
    const lesson = all_lessons.find(lesson => lesson.uuid === lessonId);
+   const courseLessons = all_lessons.filter(lesson2 => lesson?.parent_uuid === lesson2.parent_uuid);
 
    if (!lesson) return (
       <span>Lesson does not exist</span>
@@ -39,12 +40,12 @@ export function Lesson() {
       <span>Slide does not exist</span>
    );
 
-   const lessonIndex = all_lessons.indexOf(lesson);
+   const lessonIndex = courseLessons.indexOf(lesson);
 
-   const prevLesson = all_lessons[lessonIndex - 1];
+   const prevLesson = courseLessons[lessonIndex - 1];
    const prevLessonLastSlide = prevLesson && [...all_slides].reverse().find(slide => slide.parent_uuid === prevLesson.uuid);
 
-   const nextLesson = all_lessons[lessonIndex + 1];
+   const nextLesson = courseLessons[lessonIndex + 1];
    const nextLessonFirstSlide = nextLesson && all_slides.find(slide => slide.parent_uuid === nextLesson.uuid);
 
    const slideIndex = slides.indexOf(slide);
@@ -116,7 +117,6 @@ export function Lesson() {
                      header={header}
                      controls={controls}
                      portrait={portrait}
-                     makeExplicit={true}
                   />
                </div>
             </CSSTransition>
@@ -135,12 +135,10 @@ type SlideProps = {
    header: HeaderRenderFn;
    controls: React.ReactNode;
    portrait: boolean;
-   makeExplicit: boolean;
-   lib?: string;
    vw?: number;
 }
 
-function Slide({ slide, header, controls, portrait, makeExplicit, lib, vw }: SlideProps) {
+function Slide({ slide, header, controls, portrait, vw }: SlideProps) {
    const ref = useRef<HTMLDivElement>(null);
    const scrollTop = () => ref.current?.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -150,7 +148,7 @@ function Slide({ slide, header, controls, portrait, makeExplicit, lib, vw }: Sli
       localStorage.setItem(uuid, "true");
    }, [public_dir]);
 
-   const { copy, code } = meta;
+   const { copy, code, lib, explicit_setup } = meta;
 
    const copyUrl = `${public_dir}\\${copy}`;
    const codeUrl = `${public_dir}\\${code}`;
@@ -168,12 +166,12 @@ function Slide({ slide, header, controls, portrait, makeExplicit, lib, vw }: Sli
                      <Copy copyUrl={copyUrl} header={header} controls={controls} portrait={portrait} onLoad={scrollTop} />
                   }
                   {code &&
-                     <P5Widget slideUuid={slide.uuid} codeUrl={codeUrl} makeExplicit={makeExplicit} lib={lib} vw={vw} />
+                     <P5Widget slideUuid={slide.uuid} codeUrl={codeUrl} explicitSetup={explicit_setup} lib={lib} vw={vw} />
                   }
                </>
                : <>
                   {code &&
-                     <P5Widget slideUuid={slide.uuid} codeUrl={codeUrl} makeExplicit={makeExplicit} lib={lib} vw={vw} />
+                     <P5Widget slideUuid={slide.uuid} codeUrl={codeUrl} explicitSetup={explicit_setup} lib={lib} vw={vw} />
                   }
                   {copy &&
                      <Copy copyUrl={copyUrl} header={header} controls={controls} portrait={portrait} onLoad={scrollTop} />
@@ -237,12 +235,12 @@ function Copy({ copyUrl, header, controls, portrait, onLoad }: CopyProps) {
 type P5WidgetProps = {
    slideUuid: string;
    codeUrl: string;
-   makeExplicit: boolean;
+   explicitSetup?: boolean;
    lib?: string;
    vw?: number;
 }
 
-function P5Widget({ slideUuid, codeUrl, makeExplicit, lib, vw = 50 }: P5WidgetProps) {
+function P5Widget({ slideUuid, codeUrl, explicitSetup, lib, vw = 50 }: P5WidgetProps) {
    const [loading, set_loading] = useState(true);
    const [first_load, set_first_load] = useState(true);
    const [visible_slide_uuid, set_visible_slide_uuid] = useState<string | null>(null);
@@ -285,7 +283,7 @@ function P5Widget({ slideUuid, codeUrl, makeExplicit, lib, vw = 50 }: P5WidgetPr
                data-p5-version="1.6.0"
                data-id={codeUrl}
                data-lib={lib}
-               data-make-implicit={makeExplicit}
+               data-explicit-setup={explicitSetup}
             ></script>
          </div>
       )}

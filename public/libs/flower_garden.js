@@ -5,11 +5,11 @@ function setup() {
    windowResized();
    colorMode(RGB, 1);
 
-   sketch_x = getItem("sketch_x") ??
+   sketch_x = +getItem("sketch_x") ||
       width / 2;
-   sketch_y = getItem("sketch_y") ??
+   sketch_y = +getItem("sketch_y") ||
       height / 2;
-   sketch_zoom = getItem("sketch_zoom") ??
+   sketch_zoom = +getItem("sketch_zoom") ||
       0.125;
 
    SEED = random(100000)
