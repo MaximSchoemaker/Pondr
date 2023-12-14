@@ -50,11 +50,9 @@ main {
 
 #Homepage {
   color: white;
-  padding: 10vmin; 
-  padding-top: 0;
+  padding: max(10vmin, 65px) 10vmin; 
   overflow: auto;
   height: 100%;
-  /* min-height: calc(100vh + 300px); */
   box-sizing: border-box;
 
   height: 100dvh;
@@ -63,7 +61,6 @@ main {
 
 #Homepage .homepage-title {
   animation: fade 1.5s;
-  margin-top: max(10vmin, 65px);
   margin-bottom: 50px;
 }
 
@@ -74,15 +71,13 @@ main {
   margin-bottom: 75px;
 }
 
-#Homepage .links-container {
+.links-container {
   display: flex;
   gap: 60px;
 }
 
-#Homepage .links-container h2 {
+.links-container h2 {
   margin-bottom: 0.5em;
-  /* margin-left: 1em; */
-  /* text-decoration: underline; */
 }
 
 #Homepage .course-previews-container {
@@ -138,7 +133,6 @@ main {
 
 #CoursePreview:active  {
   outline-width: 5px;
-  /* outline-color: #210e44; */
 }
 
 #CoursePreview .preview-media {
@@ -150,7 +144,6 @@ main {
 
 #CoursePreview .course-title {
   position: absolute;
-  /* background-color: rgba(0,0,0,0.5); */
   background-color: #19004788;
   padding: 5px;
   padding-right: 6px;
@@ -158,8 +151,6 @@ main {
   border-bottom-right-radius: 5px;
 
   line-height: 24px;
-  /* width: 150px; */
-  /* min-width: 150px; */
   box-sizing: border-box;
 
   transition: font-size 0.2s, line-height 0.2s;
@@ -168,7 +159,6 @@ main {
 #CoursePreview:active .course-title {
   font-size: 30px;
   line-height: 30px;
-  /* word-break: break-all; */
 }
 
 
@@ -224,8 +214,8 @@ main {
   overflow: auto;
   
   color: white;
-  padding: 10vmin; 
-  padding-top: 0;
+  padding: max(10vmin, 65px) 10vmin; 
+  padding-bottom: 64px;
   overflow: auto;
   box-sizing: border-box;
 }
@@ -235,7 +225,6 @@ main {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  margin-top: max(10vmin, 65px);
   margin-bottom: 50px;
 }
 
@@ -256,17 +245,6 @@ main {
   flex-direction: column;
   gap: 25px;
   margin-bottom: 75px;
-}
-
-#Course .links-container {
-  display: flex;
-  gap: 60px;
-}
-
-#Course .links-container h2 {
-  margin-bottom: 0.5em;
-  /* margin-left: 1em; */
-  /* text-decoration: underline; */
 }
 
 #LessonPreview {
