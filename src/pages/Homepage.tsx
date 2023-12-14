@@ -31,7 +31,7 @@ function CoursePreview({ course, index }: CoursePreviewProps) {
    const { title, preview } = meta;
 
    const url = `/${uuid}`;
-   const delay = index * 0.1;
+   const delay = (index + 0.5) * 0.1;
 
    return (
       <Link to={url} id="CoursePreview" style={{ animationDelay: delay + "s" }}>
