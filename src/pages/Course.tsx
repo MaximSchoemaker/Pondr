@@ -110,7 +110,7 @@ function LessonPreview({ lesson, index, open, onHoverLesson }: LessonPreviewProp
    }
 
    return (
-      <div id="LessonPreview" className={`${open ? 'open' : ''}`} style={{ animationDelay: (index * 0.2) + "s" }}
+      <div id="LessonPreview" className={`${open ? 'open' : ''}`} style={{ animationDelay: ((index + 0.5) * 0.2) + "s" }}
          onMouseEnter={() => (set_hovered(true), onHoverLesson(index))}
       >
          <h2 className="lesson-header">
