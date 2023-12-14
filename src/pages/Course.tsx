@@ -23,7 +23,7 @@ export function Course() {
    const [openLesson, set_openLesson] = useState<number | null>(null);
    const onHoverLesson = (i: number) => set_openLesson(i);
    const touchDevice = isTouchDevice();
-   const lessonContainerHeight = touchDevice ? "auto" : (all_lessons.length - 1) * 125 + 198;
+   const lessonContainerHeight = touchDevice ? "auto" : (courseLessons.length - 1) * 125 + 198;
 
    const { meta } = course;
    const { title } = meta;

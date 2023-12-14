@@ -6,14 +6,20 @@ export type CompiledRoot<Meta> = {
    meta: Meta;
 }
 
-export type Compiled<Meta> = {
-   parent_uuid: string;
-} & CompiledRoot<Meta>;
+export type CompiledPreview = {
+   type: "image" | "video";
+   file: string;
+};
 
 export type CompiledCourse = CompiledRoot<{
    title: string;
-   image: string;
+   preview: CompiledPreview;
 }>;
+
+
+export type Compiled<Meta> = {
+   parent_uuid: string;
+} & CompiledRoot<Meta>;
 
 export type CompiledLesson = Compiled<{
    title: string;

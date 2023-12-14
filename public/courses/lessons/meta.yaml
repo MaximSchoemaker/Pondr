@@ -1,4 +1,7 @@
-title: Creative Coding basics with P5.js
+title: Creative Coding basics with p5.js
+preview: 
+  type: video
+  file: "Going in Circles 2023-01-25 07_00_42 1080x1080.mp4"
 lessons:
   - 1_drawing
   - 2_scaling

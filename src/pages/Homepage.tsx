@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 
-import { CompiledCourse } from "../types";
+import { CompiledCourse, CompiledPreview } from "../types";
 
 import all_courses from "../compiled/courses.json";
 
@@ -9,9 +9,11 @@ export function Homepage() {
    return (
       <div id="Homepage">
          <h1 className="homepage-title">PONDR</h1>
-         {all_courses.map(course =>
-            <CoursePreview course={course} key={course.uuid} />
-         )}
+         <div className="course-previews-container">
+            {all_courses.map((course, index) =>
+               <CoursePreview course={course} index={index} key={course.uuid} />
+            )}
+         </div>
          <div className="links-container">
             <HomepageLinks />
          </div>
@@ -21,17 +23,36 @@ export function Homepage() {
 
 type CoursePreviewProps = {
    course: CompiledCourse;
+   index: number;
 }
 
-function CoursePreview({ course }: CoursePreviewProps) {
-   const { uuid, meta } = course;
-   const { title } = meta;
+function CoursePreview({ course, index }: CoursePreviewProps) {
+   const { uuid, public_dir, meta } = course;
+   const { title, preview } = meta;
+
+   const url = `/${uuid}`;
+   const delay = index * 0.1;
 
    return (
-      <div id="CoursePreview">
-         <Link to={`/${uuid}`}>{title}</Link>
-      </div>
+      <Link to={url} id="CoursePreview" style={{ animationDelay: delay + "s" }}>
+         <Preview public_dir={public_dir} preview={preview} />
+         <h3 className="course-title">{title}</h3>
+      </Link>
    );
+}
+
+
+type PreviewProps = {
+   public_dir: string;
+   preview: CompiledPreview
+}
+
+function Preview({ public_dir, preview }: PreviewProps) {
+   const { type, file } = preview;
+   const src = `${public_dir}\\${file}`
+
+   if (type === "image") return <img className="preview-media" src={src} />
+   if (type === "video") return <video className="preview-media" autoPlay={true} muted={true} loop={true} src={src} />
 }
 
 const resources = [
