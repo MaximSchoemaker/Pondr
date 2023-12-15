@@ -13,7 +13,7 @@ function App() {
   const touchDevice = isTouchDevice();
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div id="App" tabIndex="0" style={{ "--window-height": windowHeight + "px" }} className={`${touchDevice ? "touchDevice" : "mouseDevice"}`}>
         {/* <div id="Header"><Link to="/" className="logo">PONDR</Link></div> */}
         <main>
