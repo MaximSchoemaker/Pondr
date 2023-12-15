@@ -613,6 +613,13 @@ p {
   line-height: 1.2em;
 }
 
+.text-progress-no-titles {
+  color: white;
+  padding-top: 36px;
+  padding-left: 60px;
+  font-size: 1rem;
+}
+
 .text-progress {
   font-size: 1rem;
   position: absolute;

@@ -80,15 +80,16 @@ export function Lesson() {
       return () => window.removeEventListener("keydown", keyDown);
    }, [prevUrl, nextUrl]);
 
-   const header = (in_document = true, no_margin_bottom = false) => (
-      <div className={`header ${in_document ? "in-document" : ""}`}>
-         <h1 style={{ marginBottom: no_margin_bottom ? 0 : undefined }}
-         >
-            <div className="text-progress">{(slideIndex + 1)} / {(slides.length)}</div>
-            {lesson.meta.title}
-         </h1>
-         <h3 className="subtitle">{slide.meta.title}</h3>
-      </div>
+   const header = (in_document = true, no_margin_bottom = false, no_titles = false) => (
+      no_titles
+         ? "" //<div className="text-progress-no-titles">{(slideIndex + 1)} / {(slides.length)}</div>
+         : <div className={`header ${in_document ? "in-document" : ""}`}>
+            <h1 style={{ marginBottom: no_margin_bottom ? 0 : undefined }} >
+               <div className="text-progress">{(slideIndex + 1)} / {(slides.length)}</div>
+               {lesson.meta.title}
+            </h1>
+            <h3 className="subtitle">{slide.meta.title}</h3>
+         </div>
    );
 
    const controls = (
@@ -154,10 +155,11 @@ function Slide({ slide, header, controls, portrait, vw }: SlideProps) {
    const codeUrl = `${public_dir}\\${code}`;
 
    const header_no_margin_bottom = !!(!copy || portrait && code);
+   const no_titles = !copy;
 
    return (
       <div id="Slide" ref={ref}>
-         {(!copy || portrait) && header(false, header_no_margin_bottom)}
+         {(!copy || portrait) && header(false, header_no_margin_bottom, no_titles)}
 
          <div className="container">
             {portrait
