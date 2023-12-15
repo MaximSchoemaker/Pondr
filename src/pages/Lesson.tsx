@@ -222,7 +222,9 @@ function Copy({ copyUrl, header, controls, portrait, onLoad }: CopyProps) {
                <section key={md} style={{ animationDelay: `${(i + 0.75) * 0.1} s` }}>
                   <span className="md-index">✦</span>
                   <ReactMarkdown
-                     // linkTarget="_blank"
+                     components={{
+                        a: ({ children, href }) => <a href={href} target="_blank">{children}</a>
+                     }}
                      rehypePlugins={[rehypeRaw]}
                      skipHtml={false}
                   >{md}</ReactMarkdown>
