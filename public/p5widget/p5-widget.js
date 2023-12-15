@@ -129,7 +129,7 @@
 	    var p5version = el.getAttribute('data-p5-version');
 	    var maxRunTime = parseInt(el.getAttribute('data-max-run-time'));
 	    var autoplay = el.hasAttribute('data-autoplay');
-	    var makeImplicit = el.hasAttribute('data-make-implicit');
+	    var explicitSetup = el.hasAttribute('data-explicit-setup');
 	    var lib = el.getAttribute('data-lib');
 	    var url;
 	    var qsArgs = [
@@ -161,8 +161,8 @@
 	    if (autoplay) {
 	        qsArgs.push('autoplay=on');
 	    }
-	    if (makeImplicit) {
-	        qsArgs.push('makeImplicit=' + makeImplicit);
+	    if (explicitSetup) {
+	        qsArgs.push('explicitSetup=' + explicitSetup);
 	    }
 	    if (lib) {
 	        qsArgs.push('lib=' + encodeURIComponent(lib));
@@ -245,7 +245,7 @@
 	exports.PREVIEW_WIDTH = 150;
 	exports.HEIGHT = 300;
 	exports.MAX_RUN_TIME = 1000;
-	exports.MAKE_IMPLICIT = false;
+	exports.EXPLICIT_SETUP = false;
 
 
 /***/ })
