@@ -1,9 +1,9 @@
 Flowers come in all shapes and sizes.
 ---
-All 3 elements have length, width and size. For example:
+Use length, size and width to change the elements. For example:
 - `stem_length = 1`
-- `bud_width = 1 / 2`
-- `petal_size = 2`
+- `bud_size = 1 / 2`
+- `petal_width = 2`
 ---
 Stem has a special property called `bend`
 Use it like so: `stem_bend = 1 / 10`

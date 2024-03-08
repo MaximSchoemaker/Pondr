@@ -118,15 +118,18 @@ function turn(val) {
 }
 
 function branch() {
+   if (depth >= grow_depth) return;
    push();
    ctx_reset_vars.forEach(v => globalThis[v.name] = v.default_value);
    pushCtx();
+   depth++;
    [...arguments].map(f => f());
    popCtx();
    pop();
 }
 
 function ring() {
+   if (depth >= grow_depth) return;
    prev_i = i;
    prev_f = f;
    prev_count = count;
@@ -147,6 +150,7 @@ function ring() {
 }
 
 function fork() {
+   if (depth >= grow_depth) return;
    prev_i = i;
    prev_f = f;
    prev_count = count;
@@ -167,7 +171,9 @@ function fork() {
 }
 
 function repeat() {
+   if (depth >= grow_depth) return;
    pushCtx();
+   depth++;
    ctx_reset_vars.forEach(v => globalThis[v.name] = v.default_value);
    prev_i = i;
    prev_f = f;
@@ -206,6 +212,9 @@ registerCtxVar("ring_radius", 0);
 registerCtxVar("fork_count", 2);
 registerCtxVar("fork_angle", 0.25);
 registerCtxVar("fork_radius", 0);
+
+registerCtxVar("depth", 0);
+registerCtxVar("grow_depth", 10);
 
 const defaultDrawVars = { offset: 0.5, move: 0.5, turn: 0, size: 1, length: 1 }
 
