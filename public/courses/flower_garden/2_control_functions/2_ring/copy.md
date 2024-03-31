@@ -1,4 +1,4 @@
-Repeat is pretty cool, but what if I want to repeat in a ring?
+Repeat is pretty cool, but what if I want to repeat in a circle?
 ---
 Use `ring(petal)` to make a ring of petals!
 ---

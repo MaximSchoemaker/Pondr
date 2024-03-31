@@ -1,0 +1,6 @@
+title: Fork
+image: download.png
+copy: copy.md
+code: sketch.js
+lib: /libs/flower_garden.js
+explicit_setup: true
