@@ -7,6 +7,8 @@ function my_garden() {
 function my_petal() {
 	wave_min = 0
 	wave_max = 1
+
 	petal_size = wave(f * 3)
+
 	petal()
 }

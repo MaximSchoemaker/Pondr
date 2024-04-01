@@ -5,7 +5,7 @@ Until now we've only been passing 1 argument to ring, but it is possible to pass
 We do so my putting a `,` in between the arguments. For example:
 - `ring(petal, stem)`
 - `repeat(petal, stem, bud)`
-- `fork(petal, bud, stem, bud)`
+- `fork(petal, bud, stem, my_bud)`
 
 ---
 Challenge!

@@ -10,4 +10,4 @@ The wave has a min and max value indicating the low and high point of the wave. 
 Challenge!
 - change `petal_size = f` into `petal_size = wave(f)`
 - now change it to `wave(f * 3)`
-- set `wave_min = mouse_x` and `wave_max = mouse_y`
+- set `wave_min = mouse_x` and `wave_max = mouse_y` and move the wave! ✨ 

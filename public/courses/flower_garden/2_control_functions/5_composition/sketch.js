@@ -3,17 +3,11 @@ function my_garden() {
 }
 
 function my_flower() {
-	stem_length = 2
-	stem_bend = 2 / 10
-	stem()
-
-	branch(my_leaves)
-
-	stem_bend = -2 / 10
-	stem()
-
-	branch(my_bud)
+	my_leaves()
+	my_stem()
+	my_bud()
 }
+
 
 function my_leaves() {
 	petal_color = "green"
@@ -21,7 +15,19 @@ function my_leaves() {
 	fork(petal)
 }
 
+
+function my_stem() {
+	stem_length = 2
+	stem_bend = 1 / 5
+	stem()
+
+	stem_bend = -1 / 5
+	stem()
+}
+
+
 function my_bud() {
+	petal_color = "white"
 	ring_count = 11
 	ring(petal)
 

@@ -1,6 +1,6 @@
 Welcome to the Flower Garden :)
 ---
-In this chapter we will learn about the large variety of flowers that are possible in this garden.
+In this tutorial we will learn about the large variety of flowers that are possible in this garden.
 ---
 We will learn how to control these variations and even make a couple of our own! ✨🌼✨
 ---

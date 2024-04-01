@@ -11,4 +11,4 @@ For a list of all possible colour names, have a look [here](https://htmlcolorcod
 ---
 Challenge!
 - Create the famous `"black"` tulip...
-- Change the colours to whatever you want! ✨
+- Or change the colours to whatever you want! ✨
