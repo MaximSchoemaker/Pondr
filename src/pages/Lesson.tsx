@@ -147,6 +147,10 @@ function Slide({ slide, header, controls, portrait, vw }: SlideProps) {
 
    useEffect(() => {
       localStorage.setItem(uuid, "true");
+      // flower garden reset on slide change
+      localStorage.removeItem("flower_garden_x");
+      localStorage.removeItem("flower_garden_y");
+      localStorage.removeItem("flower_garden_zoom");
    }, [public_dir]);
 
    const { copy, code, lib, explicit_setup } = meta;

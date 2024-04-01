@@ -5,11 +5,11 @@ function setup() {
    windowResized();
    colorMode(RGB, 1);
 
-   sketch_x = +getItem("sketch_x") ||
+   sketch_x = +getItem("flower_garden_x") ||
       width / 2;
-   sketch_y = +getItem("sketch_y") ||
+   sketch_y = +getItem("flower_garden_y") ||
       height / 2;
-   sketch_zoom = +getItem("sketch_zoom") ||
+   sketch_zoom = +getItem("flower_garden_zoom") ||
       0.125;
 
    SEED = random(100000)
@@ -37,9 +37,9 @@ function preDraw() {
    mouse_x = mouseX / width;
    mouse_y = 1 - mouseY / height;
 
-   storeItem("sketch_x", sketch_x);
-   storeItem("sketch_y", sketch_y);
-   storeItem("sketch_zoom", sketch_zoom);
+   storeItem("flower_garden_x", sketch_x);
+   storeItem("flower_garden_y", sketch_y);
+   storeItem("flower_garden_zoom", sketch_zoom);
 }
 
 function draw() {
