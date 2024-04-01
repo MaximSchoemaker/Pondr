@@ -118,7 +118,7 @@ function turn(val) {
 }
 
 function branch() {
-   if (depth >= grow_depth) return;
+   if (depth >= depth_max) return;
    push();
    ctx_reset_vars.forEach(v => globalThis[v.name] = v.default_value);
    pushCtx();
@@ -129,7 +129,7 @@ function branch() {
 }
 
 function ring() {
-   if (depth >= grow_depth) return;
+   if (depth >= depth_max) return;
    prev_i = i;
    prev_f = f;
    prev_count = count;
@@ -150,7 +150,7 @@ function ring() {
 }
 
 function fork() {
-   if (depth >= grow_depth) return;
+   if (depth >= depth_max) return;
    prev_i = i;
    prev_f = f;
    prev_count = count;
@@ -171,7 +171,7 @@ function fork() {
 }
 
 function repeat() {
-   if (depth >= grow_depth) return;
+   if (depth >= depth_max) return;
    pushCtx();
    depth++;
    ctx_reset_vars.forEach(v => globalThis[v.name] = v.default_value);
@@ -190,6 +190,14 @@ function repeat() {
    popCtx();
 }
 
+Object.defineProperty(window, 'depth_f', {
+   enumerable: true,
+   configurable: true,
+   get: function () {
+      return 1 - depth / (depth_max + 1)
+   }
+});
+
 
 registerCtxVar("t", 0);
 
@@ -199,6 +207,7 @@ registerCtxVar("count", 0);
 registerCtxVar("prev_i", 0);
 registerCtxVar("prev_f", 0);
 registerCtxVar("prev_count", 0);
+
 registerCtxVar("size", 1);
 
 registerCtxVar("wave_min", 0, true);
@@ -214,7 +223,7 @@ registerCtxVar("fork_angle", 0.25);
 registerCtxVar("fork_radius", 0);
 
 registerCtxVar("depth", 0);
-registerCtxVar("grow_depth", 10);
+registerCtxVar("depth_max", 10);
 
 const defaultDrawVars = { offset: 0.5, move: 0.5, turn: 0, size: 1, length: 1 }
 
