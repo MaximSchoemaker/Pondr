@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, lazy } from "react";
+import { useEffect, useState, useRef, lazy, useContext } from "react";
 import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
@@ -7,9 +7,10 @@ import rehypeRaw from 'rehype-raw'
 
 import { loadMd } from '../utils/loadMd';
 
-import all_lessons from "../compiled/lessons.json";
-import all_slides from "../compiled/slides.json";
+import all_language_lessons from "../compiled/lessons.json";
+import all_language_slides from "../compiled/slides.json";
 import { CompiledSlide } from "../types";
+import { LanguageContext } from "../LanguageContext";
 
 export function Lesson() {
    const location = useLocation();
@@ -26,6 +27,8 @@ export function Lesson() {
    let params = useParams();
    const { courseId, lessonId, slideId } = params;
 
+   const language = useContext(LanguageContext);
+   const all_lessons = all_language_lessons[language];
    const lesson = all_lessons.find(lesson => lesson.uuid === lessonId);
    const courseLessons = all_lessons.filter(lesson2 => lesson?.parent_uuid === lesson2.parent_uuid);
 
@@ -33,6 +36,7 @@ export function Lesson() {
       <span>Lesson does not exist</span>
    );
 
+   const all_slides = all_language_slides[language];
    const slides = all_slides.filter(slide => slide.parent_uuid === lessonId);
    const slide = slides.find(slide => slide.uuid === slideId);
 
@@ -260,6 +264,9 @@ function P5Widget({ slideUuid, codeUrl, explicitSetup, lib, vw = 50 }: P5WidgetP
    const [loading, set_loading] = useState(true);
    const [first_load, set_first_load] = useState(true);
    const [visible_slide_uuid, set_visible_slide_uuid] = useState<string | null>(null);
+
+   const language = useContext(LanguageContext);
+   const all_slides = all_language_slides[language];
 
    useEffect(() => {
       if (slideUuid) {

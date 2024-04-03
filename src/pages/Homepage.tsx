@@ -1,11 +1,17 @@
 
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { LanguageContext } from "../LanguageContext";
 
 import { CompiledCourse, CompiledPreview } from "../types";
 
-import all_courses from "../compiled/courses.json";
+import all_language_courses from "../compiled/courses.json";
 
 export function Homepage() {
+
+   const language = useContext(LanguageContext);
+   const all_courses = all_language_courses[language] ?? [];
+
    return (
       <div id="Homepage">
          <h1 className="homepage-title">PONDR</h1>
