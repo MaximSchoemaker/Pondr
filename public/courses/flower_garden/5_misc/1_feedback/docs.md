@@ -26,7 +26,13 @@ Most of the code in Flower Garden is streamlined to be as small as possible. I m
 
 ---
 
-4 - Accessibility vs truthfulness
+4 - t & f vs time & ???
+
+I decided to use single letter variables for `t` and `f`. It keeps complicated calculations more consise (eg. `t + f * 1 / 2`) similar to how we do this in mathematical equations. I do think using `time` might be clearer, but `fraction` or `fract` makes less sense to me. I would love to know if you know a better word for `f`. It's essentially `index / count`, the fraction of the index over the count in a loop.
+
+---
+
+5 - Accessibility vs truthfulness
 
 Flower Garden is optimized to be accessible in terms of syntax and concepts. One way I try to do this is by making style variables like `bud_size`, `stem_bend`, `petal_color`, etc work with a stack context when set inside a `repeat`, `ring`, `fork` or `branch` call. When setting the variable inside a control function the value gets set back to its previous value when leaving that call. This makes it so that style changes only effect `bud`, `stem` and `petal` calls inside that control function. This prevents style changes from affecting adjacent calls.
 
@@ -34,7 +40,7 @@ While this is easier to work with it is not how normal variable setting works in
 
 ---
 
-5 - Inverted y-axis
+6 - Inverted y-axis
 
 Inverting the y-axis (origin = bottom left, vs top left) is another such concern. I opted to do this because it maps `mouse_y` in an intuitive way. I do however worry about introducing an intuition that will need to be unlearned in different programming contexts.
 
