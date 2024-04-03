@@ -40,6 +40,19 @@ function slugify(string) {
     .replaceAll(" ", "-");
 }
 
+let ids = [];
+function generateId(title) {
+  let id = slugify(title);
+
+  let i = 2;
+  while (ids.includes(id)) {
+    id = slugify(`${title} ${i}`);
+    i++;
+  }
+  ids.push(id);
+  return id;
+}
+
 function compileDirectory(dir, default_meta, meta_filename, log = false) {
   const fileNames = fs.readdirSync(dir);
   (log || LOG_VERBOSE) && console.log({ fileNames });
@@ -56,7 +69,7 @@ function compileDirectory(dir, default_meta, meta_filename, log = false) {
     const meta = parseMeta(metaPath, fallbackMetaPath, default_meta);
     const public_dir = dir.split("public").at(-1);
     (log || LOG_VERBOSE) && console.log(meta);
-    return { uuid: slugify(meta.title), dir, public_dir, meta };
+    return { uuid: generateId(meta.title), dir, public_dir, meta };
   });
 
   return data;
