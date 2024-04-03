@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, lazy } from "react";
 import { useLocation, useParams, useNavigate, Link } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
@@ -151,9 +151,11 @@ function Slide({ slide, header, controls, portrait, vw }: SlideProps) {
       localStorage.removeItem("flower_garden_x");
       localStorage.removeItem("flower_garden_y");
       localStorage.removeItem("flower_garden_zoom");
+
+      console.log(slide);
    }, [public_dir]);
 
-   const { copy, code, lib, explicit_setup } = meta;
+   const { copy, code, lib, explicit_setup, iframe } = meta;
 
    const copyUrl = `${public_dir}\\${copy}`;
    const codeUrl = `${public_dir}\\${code}`;
@@ -174,8 +176,14 @@ function Slide({ slide, header, controls, portrait, vw }: SlideProps) {
                   {code &&
                      <P5Widget slideUuid={slide.uuid} codeUrl={codeUrl} explicitSetup={explicit_setup} lib={lib} vw={vw} />
                   }
+                  {iframe &&
+                     <Iframe src={iframe} />
+                  }
                </>
                : <>
+                  {iframe &&
+                     <Iframe src={iframe} />
+                  }
                   {code &&
                      <P5Widget slideUuid={slide.uuid} codeUrl={codeUrl} explicitSetup={explicit_setup} lib={lib} vw={vw} />
                   }
@@ -296,4 +304,21 @@ function P5Widget({ slideUuid, codeUrl, explicitSetup, lib, vw = 50 }: P5WidgetP
          </div>
       )}
    </div>
+}
+
+type IframeProps = {
+   src: string;
+}
+
+function Iframe({ src }: IframeProps) {
+
+   return (
+      <div id="Iframe">
+         <iframe
+            src={src}
+            width={640}
+         >Loading…
+         </iframe>
+      </div>
+   );
 }

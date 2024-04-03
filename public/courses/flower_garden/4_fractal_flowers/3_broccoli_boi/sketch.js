@@ -8,7 +8,6 @@ function my_fractal() {
 	my_eyes()
 
 	fork_angle = 0
-	fork_count = 2
 	fork(my_fractal)
 }
 
@@ -24,6 +23,5 @@ function my_eyes() {
 	bud_offset = 2
 	bud_size = 1 / 10
 	fork_angle = 1 / 3
-	fork_count = 2
 	fork(bud)
 }

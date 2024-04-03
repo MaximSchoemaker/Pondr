@@ -33,4 +33,5 @@ export type CompiledSlide = Compiled<{
    code: string;
    lib?: string;
    explicit_setup?: boolean;
+   iframe?: string;
 }>;
