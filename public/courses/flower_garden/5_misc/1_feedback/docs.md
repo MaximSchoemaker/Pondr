@@ -1,4 +1,4 @@
-Don't feel obliged to fill in every question on this form, but if you're interested I'd love to invite you to join the discussion ✨
+Don't feel obliged to fill in every question on this form, I'd be very happy to hear any feedback you'd like to give. But if you're interested I'd love to invite you to join the discussion ✨
 
 ---
 
