@@ -1,4 +1,4 @@
-If you we're thinking of giving specific feedback, feel free to fill in "General Feedback" and ignore the rest of the form. Otherwise I'd love to invite you to join the discussion ✨
+Don't feel obliged to fill in every question on this form, but if you're interested I'd love to invite you to join the discussion ✨
 
 ---
 
