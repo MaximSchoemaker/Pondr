@@ -8,5 +8,5 @@ Gebruik depth max (maximale diepte) om aan te geven hoe diep de fractaal gaat:
 - `depth_max = 4`
 ---
 Uitdaging!
-- Ze `depth_max` op `depth_max = 10 * mouse_y` en bestuurd de diepte met je muis 😮
+- Ze `depth_max` op `depth_max = 10 * mouse_y` en bestuur de diepte met je muis 😮
 - Zet `stem_length` op `stem_length = depth_f` 🥦✨
