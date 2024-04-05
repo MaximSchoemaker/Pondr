@@ -1,0 +1,6 @@
+title: Wave
+image: download2.png
+copy: docs.nl.md
+code: sketch.js
+lib: /libs/flower_garden.js
+explicit_setup: true

@@ -5,4 +5,4 @@ How about `t` ! 🔥
 ---
 Challenge!
 - Set `wave_min` to `wave_min = wave(t)`
-- Now set `petal_size` to `petal_size = wave(f * 3 + t)`
+- Now set `petal_size` to `wave(f * 3 + t)` ✨

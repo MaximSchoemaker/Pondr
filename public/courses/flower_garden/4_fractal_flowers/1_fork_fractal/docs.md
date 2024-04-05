@@ -9,4 +9,4 @@ Set the depth max to control how deep the fractal goes:
 ---
 Challenge!
 - Change `depth_max` to `depth_max = 10 * mouse_y` and control the depth with your mouse 😮
-- Set `stem_length` to `stem_length = depth_f` 🥦
+- Set `stem_length` to `stem_length = depth_f` 🥦✨
