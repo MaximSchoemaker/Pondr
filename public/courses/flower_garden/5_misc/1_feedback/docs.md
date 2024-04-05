@@ -22,7 +22,7 @@ As for fractions vs decimals, I decided to use fractions throughout the lessons.
 
 3 - Code complexity
 
-Most of the code in Flower Garden is streamlined to be as small as possible. I made an exception for chapters [Colors](/flower-garden/garden-varieties/colors) and [Interaction](/flower-garden/garden-varieties/interaction). My thinking is to encourage being able to interact with code that you do not fully understand by focussing on syntax highlighting and recognizable variable names. While this is an important skill to develop, potentially it's too early to put this in a beginners course. Let me know if you think it makes these chapters too difficult.
+Most of the code in Flower Garden is streamlined to be as small as possible. I made an exception for slides [Colors](/flower-garden/garden-varieties/colors) and [Interaction](/flower-garden/garden-varieties/interaction). My thinking is to encourage being able to interact with code that you do not fully understand by focussing on syntax highlighting and recognizable variable names. While this is an important skill to develop, potentially it's too early to put this in a beginners course. Let me know if you think it makes these chapters too difficult.
 
 ---
 
