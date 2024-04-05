@@ -14,7 +14,10 @@ export function Homepage() {
 
    return (
       <div id="Homepage">
-         <h1 className="homepage-title">PONDR</h1>
+         <div className="homepage-header">
+            <h1 className="homepage-title">PONDR</h1>
+            <LanguageSelect />
+         </div>
          <div className="course-previews-container">
             {all_courses_language.map((course, index) =>
                <CoursePreview course={course} index={index} key={course.uuid} />
@@ -25,6 +28,32 @@ export function Homepage() {
          </div>
       </div>
    );
+}
+
+const languages = [
+   "en", "nl"
+]
+
+function LanguageSelect() {
+
+   const language = useContext(LanguageContext);
+
+   return (
+      <div id="LanguageSelect">
+         {languages.map((l, i) =>
+            <span key={l}>
+               <a
+                  className={`text-button ${l === language ? "selected" : ""}`}
+                  href={`?lang=${l}`}
+               >
+                  {l}
+               </a>
+               {i !== language.length - 1 && " / "}
+            </span>
+         )
+         }
+      </div >
+   )
 }
 
 type CoursePreviewProps = {

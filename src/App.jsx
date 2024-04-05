@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useSearchParams } from "react-router-dom";
 
 import { Homepage } from "./pages/Homepage";
@@ -25,8 +25,8 @@ function Pondr() {
   const touchDevice = isTouchDevice();
 
   const [searchParams] = useSearchParams();
-  const lang = searchParams.get("lang") ?? "en";
-  console.log({ lang });
+  const lang = searchParams.get("lang") ?? localStorage.getItem("lang") ?? "en";
+  useEffect(() => localStorage.setItem("lang", lang), [lang]);
 
   return (
     <LanguageContext.Provider value={lang}>

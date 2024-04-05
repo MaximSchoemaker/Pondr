@@ -59,6 +59,12 @@ main {
   overflow: auto;
 }
 
+#Homepage .homepage-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 #Homepage .homepage-title {
   animation: fade 1.5s;
   margin-bottom: 50px;
@@ -69,6 +75,19 @@ main {
   flex-direction: column;
   gap: 25px;
   margin-bottom: 75px;
+}
+
+#LanguageSelect .selected {
+  text-decoration: underline;
+}
+
+.text-button {
+  all: unset; 
+  cursor: pointer;
+}
+
+.text-button:focus {
+  outline: revert;
 }
 
 .links-container {
