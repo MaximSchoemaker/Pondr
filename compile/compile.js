@@ -32,8 +32,6 @@ function parseMeta(metaPath, fallbackMetaPath, default_meta) {
   return { ...default_meta, ...meta };
 }
 
-let uuid = 0;
-
 function slugify(string) {
   return string
     .toLowerCase()
@@ -53,7 +51,7 @@ function generateId(title) {
   return id;
 }
 
-function compileDirectory(dir, default_meta, meta_filename, log = false) {
+function compileDirectory(dir, default_meta, meta_filename, language, log = false) {
   const fileNames = fs.readdirSync(dir);
   (log || LOG_VERBOSE) && console.log({ fileNames });
 
@@ -69,15 +67,15 @@ function compileDirectory(dir, default_meta, meta_filename, log = false) {
     const meta = parseMeta(metaPath, fallbackMetaPath, default_meta);
     const public_dir = dir.split("public").at(-1);
     (log || LOG_VERBOSE) && console.log(meta);
-    return { uuid: generateId(meta.title), dir, public_dir, meta };
+    return { uuid: generateId(meta.title), dir, public_dir, language, meta };
   });
 
   return data;
 }
 
-function compileSubDirectories(parents, default_meta, meta_filename, log = false) {
+function compileSubDirectories(parents, default_meta, meta_filename, language, log = false) {
   return parents.map(parent =>
-    compileDirectory(parent.dir, DEFAULT_LESSON_META, meta_filename, log)
+    compileDirectory(parent.dir, DEFAULT_LESSON_META, meta_filename, language, log)
       .map(data => ({ parent_uuid: parent.uuid, ...data }))
   ).flat();
 }
@@ -97,20 +95,21 @@ function dump(title, data) {
 function compile(log = false) {
   console.log("COMPILING...");
 
-  const courses_eg = compileDirectory(COURSES_DIR, DEFAULT_COURSE_META, "meta.yaml");
-  const courses_nl = compileDirectory(COURSES_DIR, DEFAULT_COURSE_META, "meta.nl.yaml");
-  const courses = { eg: courses_eg, nl: courses_nl };
+  const courses_eg = compileDirectory(COURSES_DIR, DEFAULT_COURSE_META, "meta.yaml", "en");
+  const courses_nl = compileDirectory(COURSES_DIR, DEFAULT_COURSE_META, "meta.nl.yaml", "nl");
+  const courses = [...courses_eg, ...courses_nl];
 
   (log || LOG_VERBOSE) && dump("COURSES", courses, "meta.yaml");
 
-  const lessons_eg = compileSubDirectories(courses.eg, DEFAULT_LESSON_META, "meta.yaml");
-  const lessons_nl = compileSubDirectories(courses.nl, DEFAULT_LESSON_META, "meta.nl.yaml");
-  const lessons = { eg: lessons_eg, nl: lessons_nl };
+  const lessons_eg = compileSubDirectories(courses_eg, DEFAULT_LESSON_META, "meta.yaml", "en");
+  const lessons_nl = compileSubDirectories(courses_nl, DEFAULT_LESSON_META, "meta.nl.yaml", "nl");
+  const lessons = [...lessons_eg, ...lessons_nl];
+
   (log || LOG_VERBOSE) && dump("LESSONS", lessons);
 
-  const slides_eg = compileSubDirectories(lessons.eg, DEFAULT_SLIDE_META, "meta.yaml");
-  const slides_nl = compileSubDirectories(lessons.nl, DEFAULT_SLIDE_META, "meta.nl.yaml");
-  const slides = { eg: slides_eg, nl: slides_nl };
+  const slides_eg = compileSubDirectories(lessons_eg, DEFAULT_SLIDE_META, "meta.yaml", "en");
+  const slides_nl = compileSubDirectories(lessons_nl, DEFAULT_SLIDE_META, "meta.nl.yaml", "nl");
+  const slides = [...slides_eg, ...slides_nl];
   (log || LOG_VERBOSE) && dump("SLIDES", slides);
 
   storeData(courses, "src/compiled/courses.json");

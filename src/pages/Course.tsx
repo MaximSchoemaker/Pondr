@@ -7,21 +7,19 @@ import { LanguageContext } from "../LanguageContext";
 
 import { CompiledLesson, CompiledSlide } from "../types";
 
-import all_language_courses from "../compiled/courses.json";
-import all_language_lessons from "../compiled/lessons.json";
-import all_language_slides from "../compiled/slides.json";
+import all_courses from "../compiled/courses.json";
+import all_lessons from "../compiled/lessons.json";
+import all_slides from "../compiled/slides.json";
 
 export function Course() {
    let params = useParams();
    const { courseId } = params;
 
    const language = useContext(LanguageContext);
-   const all_courses = all_language_courses[language];
    const course = all_courses.find(course => course.uuid == courseId);
 
    if (!course) return <span>Course {courseId} does not exist...</span>
 
-   const all_lessons = all_language_lessons[language];
    const courseLessons = all_lessons.filter(lesson => lesson.parent_uuid === courseId);
 
    const [openLesson, set_openLesson] = useState<number | null>(null);
@@ -59,7 +57,6 @@ type LessonPreviewProps = {
 
 function LessonPreview({ lesson, index, open, onHoverLesson }: LessonPreviewProps) {
    const language = useContext(LanguageContext);
-   const all_slides = all_language_slides[language];
    const lessonSlides = all_slides.filter(slide => slide.parent_uuid === lesson.uuid);
 
    const { meta } = lesson;

@@ -5,18 +5,18 @@ import { LanguageContext } from "../LanguageContext";
 
 import { CompiledCourse, CompiledPreview } from "../types";
 
-import all_language_courses from "../compiled/courses.json";
+import all_courses from "../compiled/courses.json";
 
 export function Homepage() {
 
    const language = useContext(LanguageContext);
-   const all_courses = all_language_courses[language] ?? [];
+   const all_courses_language = all_courses.filter(c => c.language === language);
 
    return (
       <div id="Homepage">
          <h1 className="homepage-title">PONDR</h1>
          <div className="course-previews-container">
-            {all_courses.map((course, index) =>
+            {all_courses_language.map((course, index) =>
                <CoursePreview course={course} index={index} key={course.uuid} />
             )}
          </div>
