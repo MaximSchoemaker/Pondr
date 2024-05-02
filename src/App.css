@@ -222,6 +222,10 @@ main {
   margin-right: 0.75em;
 }
 
+.links-section li .svg-icon {
+  width: auto;
+}
+
 .links-section li {
   display: flex;
   align-items: center;

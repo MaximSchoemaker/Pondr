@@ -102,12 +102,16 @@ const socials = [
    { text: "MaximGifmaker", url: "https://twitter.com/MaximGifmaker", icomoon: "twitter" },
    { text: "MaximSchoemaker", url: "https://graphics.social/@MaximSchoemaker", icomoon: "mastodon" },
 ]
+const support = [
+   { text: "Creative Coding Utrecht", url: "https://creativecodingutrecht.nl/", svg: <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="50" class="page_logo__286Aa react-draggable" viewBox="0 0 110 40" transform="translate(0,0)"><path fill="#fff" d="M0 9.963c0-4.981 0-7.472 1.245-8.718C2.491 0 4.982 0 9.963 0H30v7.503H9.963c-2.749 0-3.844 0-4.28.536-.289.355-.289.944-.289 1.924v20.074c0 .98 0 1.57.29 1.924.435.536 1.53.536 4.28.536H30V40H9.963c-4.981 0-7.472 0-8.718-1.245C0 37.509 0 35.018 0 30.037V9.963Zm40 2.8C40 4.077 44.078 0 62.762 0H70v19.358h-7.238c-11.574 0-11.574 0-11.574-6.596v14.476c0-6.596 0-6.596 11.574-6.596H70V40h-7.238C44.078 40 40 35.922 40 27.238V12.762ZM80 37.22A2.757 2.757 0 0 0 82.78 40h24.44a2.757 2.757 0 0 0 2.78-2.78V0h-4.782v37.22c0 .529 1.287.813 1.864.94.272.06.387.085.138.085H82.78c-.249 0-.134-.025.138-.085.577-.127 1.864-.411 1.864-.94V0H80v37.22Z"></path></svg> }
+]
 
 export function HomepageLinks() {
    return (
       <>
          <LinksSection title="Additional Resources" links={resources} />
          <LinksSection title="Socials" links={socials} />
+         <LinksSection title="Supported by" links={support} />
       </>
    );
 }
@@ -120,6 +124,7 @@ type LinksSectionProps = {
       icon?: string;
       icomoon?: string;
       text_icon?: string;
+      svg?: JSX.Element;
    }[]
 }
 
@@ -129,11 +134,12 @@ function LinksSection({ title, links }: LinksSectionProps) {
          <h2><span className="links-section-index">✦</span>{title}</h2>
          <div className="links-section">
             <ul>
-               {links.map(({ text, url, icon, icomoon, text_icon }) =>
+               {links.map(({ text, url, icon, icomoon, text_icon, svg }) =>
                   <li key={text}>
                      {icon && <img src={icon} alt="icon" className="icon" />}
                      {icomoon && <div className={`icon icon-${icomoon}`} />}
                      {text_icon && <div className="icon">{text_icon}</div>}
+                     {svg && <div className="icon svg-icon">{svg}</div>}
                      <a href={url} target="_blank" rel="noreferrer">{text}</a>
                   </li>
                )}
