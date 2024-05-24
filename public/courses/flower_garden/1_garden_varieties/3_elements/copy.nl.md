@@ -9,5 +9,5 @@ In de code kunnen we deze elementen groeien door de volgende functies aan te roe
 - `petal()`
 ---
 Uitdaging!
-- Probeerd nog een stem, bud of petal toe te voegen!
-- Probeerd hun volgorde aan te passen, en kijk wat er gebeurt...
+- Probeer nog een stem, bud of petal toe te voegen!
+- Probeer hun volgorde aan te passen, en kijk wat er gebeurt...

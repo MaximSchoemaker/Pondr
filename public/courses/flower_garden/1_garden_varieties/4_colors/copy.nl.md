@@ -5,7 +5,7 @@ Gebruik de volgende code om de kleur van een stem, bud of petal rood te maken:
 - `bud_color = "red"`
 - `petal_color = "red"`
 ---
-Je kan kleuren in de code herkennen doormiddel van dubbele aanhalingstekens (<span style="color:yellow">`"`</span>) en de <span style="color:yellow">gele</span> text
+Je kan kleuren in de code herkennen door middel van dubbele aanhalingstekens (<span style="color:yellow">`"`</span>) en de <span style="color:yellow">gele</span> text
 ---
 Neem [hier](https://htmlcolorcodes.com/color-names/) een kijkje voor een lijst met alle mogelijke kleuren.
 ---

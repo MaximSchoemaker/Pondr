@@ -7,5 +7,5 @@ Tijd voor speciale variabele: `f`✨
 Uitdaging!
 - Verander `petal_size = f` naar `petal_size = f + mouse_x` en beweeg rond met je muis.
 - Zet `petal_size` nu op `f * mouse_x`
-`*` is hoe we vermenigvuldiging doen in code.
+`*` wordt gebruikt voor vermenigvuldiging in code.
 Zie je het verschil tussen `+` en `*` ?

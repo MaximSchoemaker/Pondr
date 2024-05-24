@@ -1,4 +1,4 @@
-Ringen zijn handing voor bloemen, maar hoe maken we groene blaadjes?
+Ringen zijn handig voor bloemen, maar hoe maken we groene blaadjes?
 ---
 Gebruik `fork(petal)` om twee blaadjes te maken
 ---

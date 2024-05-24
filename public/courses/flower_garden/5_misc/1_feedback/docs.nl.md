@@ -1,4 +1,4 @@
-Voel je niet bezwaard om elke vraag in te vullen, ik ben meer dan blij met wat voor feedback je bereid bent om te geven. Maar als je geinteresseerd ben zou ik je graag uitnodigen om mee te doen met deze discussie ✨
+Voel je niet bezwaard om elke vraag in te vullen, ik ben meer dan blij met elke feedback die je bereid bent om te geven. Maar als je geïnteresseerd ben zou ik je graag uitnodigen om mee te doen met deze discussie ✨
 
 ---
 
@@ -12,23 +12,23 @@ Origineel heb ik deze workshop in het Engels geschreven. Met de vertaling heb ik
 
 Ik heb besloten om snake_case te gebruiken ipv cammelCase. Mijn redenering is dat snake_case meer toegankelijk is wat betreft leesbaarheid. Dit komt overeen met mijn eigen dyslexie ervaring.
 
-Het nadeel is dat dit kennis vergt van hoe je een underscore typt. Ik denk dat dit compromis het waard is gegeven dat haakjes en krulhaakjes zowiezo vereist zijn.
+Het nadeel is dat dit kennis vergt van hoe je een underscore typt. Ik denk dat dit compromis het waard is gegeven dat haakjes en krulhaakjes sowieso vereist zijn.
 
-Ik ben erg geinteresseerd in jouw case voorkeur en de rede hiervoor.
+Ik ben erg geïnteresseerd in jouw case voorkeur en de rede hiervoor.
 
 ---
 
 3 - Fracties vs decimalen vs percentages
 
-Ik ben van mening dat het binnen creative coding ontzetten nuttig is om met genormalizeerde waardes te werken (tussen 0 - 1). Vermenigvuldiging van fracties blijven genormalizeerd, terwijl percentages de neiging hebben uit de hand te lopen. Hoewel ik denk dat percentages intuitiever zijn voor beginners, lijkt mij dat het opbouwen van een intuitie rond ratios zeer waardevol is in de lange termijn.
+Ik ben van mening dat het binnen creative coding ontzetten nuttig is om met genormaliseerde waardes te werken (tussen 0 - 1). Vermenigvuldiging van fracties blijven genormaliseerd, terwijl percentages de neiging hebben uit de hand te lopen. Hoewel ik denk dat percentages intuïtiever zijn voor beginners, lijkt mij dat het opbouwen van een intuïtie rond ratio's zeer waardevol is in de lange termijn.
 
-Wat betreft fracties vs decimalen heb ik besloten om fracties te gebruiken. Hoewel `0.5` makelijk te zien is als een half, denk ik dat met `0.125` vs `1 / 8` fracties een stuk duidelijker zijn voor beginners.
+Wat betreft fracties vs decimalen heb ik besloten om fracties te gebruiken. Hoewel `0.5` makkelijk te zien is als een half, denk ik dat met `0.125` vs `1 / 8` fracties een stuk duidelijker zijn voor beginners.
 
 ---
 
 4 - Code complexiteit
 
-Het gros van de code in Flower Garden is gestroomlijnd om zo klein mogelijk te zijn. Ik heb een uitzondering gemaakt voor de slides [Kleuren](/bloemen-tuin/het-tuin-assortiment/kleuren) and [Interactie](/bloemen-tuin/het-tuin-assortiment/interactie). Mijn idee is om studenten aan te moedigen te interacteren met code die ze niet compleet begrijpen door te focussen op syntax highlighting en herkenbare variabele namen. Hoewel dit een belangrijke vaardigheid is om te ontwikkelen is het potentieel iets te vroeg om dit voor te leggen aan beginners. Laat me weten als je denkt dat deze slides te ingewikkeld zijn.
+Het gros van de code in Flower Garden is gestroomlijnd om zo klein mogelijk te zijn. Ik heb een uitzondering gemaakt voor de slides [Kleuren](/bloemen-tuin/het-tuin-assortiment/kleuren) en [Interactie](/bloemen-tuin/het-tuin-assortiment/interactie). Mijn idee is om studenten aan te moedigen te interacteren met code die ze niet compleet begrijpen door te focussen op syntax highlighting en herkenbare variabele namen. Hoewel dit een belangrijke vaardigheid is om te ontwikkelen is het potentieel iets te vroeg om dit voor te leggen aan beginners. Laat me weten als je denkt dat deze slides te ingewikkeld zijn.
 
 ---
 
@@ -42,13 +42,13 @@ Ik heb besloten om enkele letter variabelen te gebruiken voor `t` en `f`. Dit zo
 
 Flower Garden is geoptimaliseerd in termen van syntax en concepten. Een van de manieren waarop ik dit heb geprobeerd uit te voeren is door stijl variabelen zoals `bud_size`, `stem_bend`, `petal_color`, etc te laten werken met een stack context wanneer deze binnen een `repeat`, `ring`, `fork` of `branch` aanroep worden gebruikt. Wanneer een variabele binnen een controle functie wordt aangepast, wordt deze teruggezet naar de vorige waarde wanneer de functie aanroep eindigt. Dit zorgt ervoor dat stijl veranderingen alleen effect hebben op `bud`, `stem` en `petal` aanroepen binnen diezelfde controle functie. Dit voorkomt dat stijl verandering effect hebben op aangrenzende functies.
 
-Hoewel dit makkelijker is om mee te werken, is dit niet hoe normaliter variabelen aanpassing werkt in JavaScript. Ik probeer de toegangeklijk op te wegen tegen het introduceren van niet-overdraagbare intuitie. In dit geval denk ik dat dat het waard is, maar ik hoor graag hoe je hierover denkt.
+Hoewel dit makkelijker is om mee te werken, is dit niet hoe normaliter variabelen aanpassing werkt in JavaScript. Ik probeer de toegankelijkheid op te wegen tegen het introduceren van niet-overdraagbare intuïtie. In dit geval denk ik dat dat het waard is, maar ik hoor graag hoe je hierover denkt.
 
 ---
 
 7 - Omgedraaide y-as
 
-Het omdraaien van de y-as (oorsprong = linksonder vs linksboven) is een zelfde soort overweging. Ik heb gekozen dit te doen omdat het `mouse_y` op een intuitive manier bruikbaar maakt. Ik maak mij echter zorgen over het introduceren van intuitie die later binnen andere programmeer contexts weer ontleert moet worden.
+Het omdraaien van de y-as (oorsprong = linksonder vs linksboven) is eenzelfde soort overweging. Ik heb gekozen dit te doen omdat het `mouse_y` op een intuïtieve manier bruikbaar maakt. Ik maak mij echter zorgen over het introduceren van intuïtie die later binnen andere programmeer contexten weer ontleert moet worden.
 
 ---
 
